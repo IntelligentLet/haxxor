@@ -26,7 +26,7 @@ module.exports = {
                 { name: 'Bot Uptime', value: `${uptime}` },
                 { name: 'Bot ping', value: `${Date.now() - message.createdTimestamp} ms` },
                 { name: 'API Latency', value: `${Math.round(client.ws.ping)} ms`},
-                { name: 'Github Repo', value: `https://github.com/IntelligentLet/gfgbot`}
+                { name: 'Github Repo', value: `https://github.com/IntelligentLet/haxxor`}
             )
             .setTimestamp()
             .setFooter('Created by LogicGo#7666', 'https://i.imgur.com/iglEZPr.png'); 
