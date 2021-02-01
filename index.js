@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const badwords = require('./commands/bannedphrases.json')
 const express = require('express');
 
 const server = express();
@@ -21,10 +22,17 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     console.log('app ready');
-    client.user.setStatus('Haxxoring the mainframe 😎');
+    client.user.setActivity('with ur ip 😎');
 });
 
 client.on('message', message => {
+    for (badword of badwords) {
+        if (message.content.includes(badword)) {
+            message.delete()
+            break
+        }
+    }
+
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
@@ -38,37 +46,6 @@ client.on('message', message => {
     } catch (error) {
     	console.error(error);
     	message.reply('there was an error trying to execute that command!');
-    }
-
-    if (message.content.includes("grabify.link") ||
-        message.content.includes("lovebird.guru") ||
-        message.content.includes("trulove.guru") ||
-        message.content.includes("dateing.club") ||
-        message.content.includes("otherhalf.life") ||
-        message.content.includes("shrekis.life") ||
-        message.content.includes("datasig.io") ||
-        message.content.includes("datauth.io") ||
-        message.content.includes("headshot.monster") ||
-        message.content.includes("gaming-at-my.best") ||
-        message.content.includes("progaming.monster") ||
-        message.content.includes("yourmy.monster") ||
-        message.content.includes("screenshare.host") ||
-        message.content.includes("imageshare.best") ||
-        message.content.includes("screenshot.best") ||
-        message.content.includes("gamingfun.me") ||
-        message.content.includes("catsnthing.com") ||
-        message.content.includes("mypic.icu") ||
-        message.content.includes("catsnthings.fun") ||
-        message.content.includes("curiouscat.club") ||
-        message.content.includes("joinmy.site") ||
-        message.content.includes("fortnitechat.site") ||
-        message.content.includes("fortnight.space") ||
-        message.content.includes("freegiftcards.co") ||
-        message.content.includes("stopify.co") ||
-        message.content.includes("leancoding.co")
-    ) {
-        message.delete();
-        message.channel.send(`No grabify links please ${message.author}`);
     }
 });
 //when someone joins, give roles and welcome them

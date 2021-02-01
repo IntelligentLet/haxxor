@@ -1,8 +1,8 @@
 module.exports = {
     name: 'say',
-    description: 'speak',
+    description: 'Make the bot send a message',
     execute(message, args, client) {
         if (args.length === 0) return
-        message.delete().then(message.channel.send(args.join(' ')))
+        message.channel.send(args.join(' ')).then(message.delete())
     },
 };

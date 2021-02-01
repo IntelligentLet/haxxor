@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'info',
-    description: 'host info',
+    description: 'Displays host info',
     aliases: ['information', 'host'],
 	execute(message, args, client) {
         const os = require('os')
@@ -17,8 +17,6 @@ module.exports = {
         var hostinfo = new Discord.MessageEmbed()
             .setTitle('Host Info')
             .setDescription('This bot is hosted on')
-            .attachFiles(`img/${os.type()}.png`)
-            .setThumbnail(`attachment://${os.type()}.png`)
             .addFields(
                 { name: 'OS', value: `${os.type()} ${os.release()}` },
                 { name: 'CPU', value: `${JSON.stringify(os.cpus()[0].model).toString().slice(1).slice(0, -1)}` },
