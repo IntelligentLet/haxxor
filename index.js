@@ -6,12 +6,11 @@ const express = require('express');
 const server = express();
 require('dotenv').config();
 
-const prefix = 'hack';
-
-server.listen(process.env.PORT || 5000);
+server.listen(process.env.PORT);
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -29,17 +28,17 @@ client.on('message', message => {
     for (badword of badwords) {
         if (message.content.includes(badword)) {
             message.delete()
-            break
+            return
         }
     }
 
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
 	if (!client.commands.has(command)) return;
 	if (message.author.bot) return;
     if (message.guild === null) return;
-    if (!message.content.startsWith(prefix)) return;
+    if (!message.content.startsWith(process.env.PREFIX)) return;
 
     try {
     	client.commands.get(command).execute(message, args, client);

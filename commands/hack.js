@@ -1,6 +1,7 @@
 module.exports = {
     name: 'hack',
     description: 'haxxor time',
+    usage: 'hack <user> <account>',
     execute(message, args, client) {
         message.channel.send(`Hacking ${args[0]}'s ${args[1]} account...`)
         .then(

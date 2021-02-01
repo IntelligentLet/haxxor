@@ -2,6 +2,7 @@ module.exports = {
     name: 'crypto',
     description: 'Track the price of crypto currency',
     aliases: ['cryptocurrency'],
+    usage: 'crypto <coin> (currency)',
     execute(message, args, client) {
         const Discord = require('discord.js')
         const axios = require('axios');
@@ -16,7 +17,7 @@ module.exports = {
                 .setThumbnail(`https://i.imgur.com/WPGQPEH.png`)
                 .setTimestamp()
                 .setFooter('Created by LogicGo#7666', 'https://i.imgur.com/iglEZPr.png')
-                .setColor([255, 255, 255])
+                .setColor(`fefefe`)
             message.channel.send(crypto)
             return
         }
