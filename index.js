@@ -49,11 +49,11 @@ client.on('message', message => {
 });
 //when someone joins, give roles and welcome them
 client.on("guildMemberAdd", (member) => {
-    client.channels.cache.get('781966894567522304').send(`Welcome ${member.user}! You are member #${(client.guilds.cache.get(member.guild.id).memberCount)}. Please read ${client.channels.cache.get('781965192887140412')} to get started!`);
-    member.roles.add(member.guild.roles.cache.find(role => role.name === 'Member'));
+    client.channels.cache.get(process.env.CHANNEL).send(`Welcome ${member.user}! You are member #${(client.guilds.cache.get(member.guild.id).memberCount)}. Please read ${client.channels.cache.get(process.env.RULES)} to get started!`);
+    member.roles.add(member.guild.roles.cache.find(role => role.id === process.env.ROLE));
 });
 client.on("guildMemberRemove", (member) => {
-    client.channels.cache.get('781966894567522304').send(`${member} just left the server what a noob`);
+    client.channels.cache.get(process.env.CHANNEL).send(`${member} just left the server what a noob`);
 });
 
 client.login(process.env.DISCORD);
