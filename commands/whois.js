@@ -25,7 +25,6 @@ module.exports = {
             return (`${year}/${month}/${dt}`);
         }
 
-        console.log(user.createdAt)
         var userinfo = new Discord.MessageEmbed()
             .setDescription(`${guildmember}`)
             .setAuthor(user.tag, user.displayAvatarURL())
