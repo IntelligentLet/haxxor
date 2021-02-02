@@ -1,7 +1,7 @@
 module.exports = {
     name: 'eval',
     description: 'run code',
-    usage: 'eval <lang>',
+    usage: 'eval <lang> <code>',
     aliases: ['run', 'evaluate', 'execute'],
     execute(message, args, client) {
         const axios = require('axios')
