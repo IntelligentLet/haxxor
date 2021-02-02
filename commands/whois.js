@@ -1,7 +1,7 @@
 module.exports = {
     name: 'whois',
     description: 'get user info',
-    aliases: [''],
+    aliases: ['userinfo'],
     usage: "whois <id/mention>",
     execute(message, args, client) {
         const Discord = require('discord.js')

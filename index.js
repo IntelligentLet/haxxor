@@ -3,6 +3,17 @@ const fs = require('fs');
 const badwords = require('./commands/bannedphrases.json')
 const express = require('express');
 
+if (!process.env.DISCORD === null
+    || !process.env.PREFIX === null
+    || !process.env.COLOR === null
+    || !process.env.PORT === null
+    || !process.env.CHANNEL === null
+    || !process.env.RULES === null
+    || !process.env.ROLE === null) {
+        console.log("Missing environment variable(s)!")
+        process.exit(1)
+    }
+
 const server = express();
 require('dotenv').config();
 
@@ -10,7 +21,6 @@ server.listen(process.env.PORT);
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -35,10 +45,22 @@ client.on('message', message => {
 	const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
+    if (!message.content.startsWith(process.env.PREFIX)) return;
 	if (!client.commands.has(command)) return;
 	if (message.author.bot) return;
     if (message.guild === null) return;
-    if (!message.content.startsWith(process.env.PREFIX)) return;
+
+    var usage = client.commands.get(command).usage.split(" ")
+    for (thing of usage) {
+        if (thing.charAt(0) === "(") {
+            usage.splice(usage.indexOf(usage), 1)
+        }
+    }
+
+    if (args.length < usage.length - 1) {
+        message.channel.send(`${message.author} not enough arguments :/ Maybe check the help menu? \`${process.env.PREFIX} help\``)
+        return
+    }
 
     try {
     	client.commands.get(command).execute(message, args, client);
