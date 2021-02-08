@@ -3,23 +3,12 @@ const fs = require('fs');
 const badwords = require('./commands/bannedphrases.json')
 const express = require('express');
 
-if (!process.env.DISCORD === null
-    || !process.env.PREFIX === null
-    || !process.env.COLOR === null
-    || !process.env.PORT === null
-    || !process.env.CHANNEL === null
-    || !process.env.RULES === null
-    || !process.env.ROLE === null) {
-        console.log("Missing environment variable(s)!")
-        process.exit(1)
-    }
-
 const server = express();
 require('dotenv').config();
 
 server.listen(process.env.PORT);
 
-const client = new Discord.Client();
+const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -49,6 +38,7 @@ client.on('message', message => {
 	if (!client.commands.has(command)) return;
 	if (message.author.bot) return;
     if (message.guild === null) return;
+    if (!client.commands.get(command).usage) return;
 
     var usage = client.commands.get(command).usage.split(" ")
     for (thing of usage) {
@@ -69,13 +59,30 @@ client.on('message', message => {
     	message.reply('there was an error trying to execute that command!');
     }
 });
-//when someone joins, give roles and welcome them
+
 client.on("guildMemberAdd", (member) => {
-    client.channels.cache.get(process.env.CHANNEL).send(`Welcome ${member.user}! You are member #${(client.guilds.cache.get(member.guild.id).memberCount)}. Please read ${client.channels.cache.get(process.env.RULES)} to get started!`);
-    member.roles.add(member.guild.roles.cache.find(role => role.id === process.env.ROLE));
+    try {
+        client.commands.get("join").execute(member, client)
+    } catch (error) {
+        console.error(error);
+    }
 });
+
 client.on("guildMemberRemove", (member) => {
-    client.channels.cache.get(process.env.CHANNEL).send(`${member} just left the server what a noob`);
+    try {
+        client.commands.get("leave").execute(member, client)
+    } catch (error) {
+        console.error(error);
+    }
 });
+
+client.on('messageReactionAdd', (reaction, user) => {
+    try {
+        client.commands.get("react").execute(reaction, user, client)
+    } catch (error) {
+        console.error(error);
+    }
+});
+
 
 client.login(process.env.DISCORD);

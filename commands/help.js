@@ -22,6 +22,7 @@ module.exports = {
 
         for (var file of commandFiles) {
             var command = require(`../commands/${file}`);
+            if(!command.usage) continue
             embed.addField(command.name, `\`${process.env.PREFIX} ${command.usage}\``, false)
         }
         message.channel.send(embed)
