@@ -76,13 +76,4 @@ client.on("guildMemberRemove", (member) => {
     }
 });
 
-client.on('messageReactionAdd', (reaction, user) => {
-    try {
-        client.commands.get("react").execute(reaction, user, client)
-    } catch (error) {
-        console.error(error);
-    }
-});
-
-
 client.login(process.env.DISCORD);

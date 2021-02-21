@@ -1,7 +1,7 @@
 module.exports = {
     name: 'eval',
     description: 'run code',
-    usage: 'eval <lang> <code>',
+    usage: 'eval <lang> <\`\`\`code\`\`\`>',
     aliases: ['run', 'evaluate', 'execute'],
     execute(message, args, client) {
         const axios = require('axios')
@@ -11,8 +11,11 @@ module.exports = {
         args.shift()
         var source = args.join(" ")
 
+        source = source.replace("\n", "")
         source = source.replace(/(```)([a-z]*)(\n)/, "");
         source = source.replace(/(\n)(```)/, "");
+
+        console.log(source)
 
         axios.post(`https://emkc.org/api/v1/piston/execute`, {
             "language": lang,
