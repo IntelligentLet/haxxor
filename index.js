@@ -8,7 +8,7 @@ require('dotenv').config();
 
 server.listen(process.env.PORT);
 
-const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
+const client = new Discord.Client({ disableEveryone: true });
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));

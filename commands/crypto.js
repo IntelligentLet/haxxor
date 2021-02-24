@@ -10,18 +10,6 @@ module.exports = {
 
         var crypto = new Discord.MessageEmbed()
 
-        if (args[0].toLowerCase() === "timercoin") {
-            crypto
-                .setTitle(`TimerCoin (TRC)`)
-                .setDescription(`Priceless. Time is money, after all.`)
-                .setThumbnail(`https://i.imgur.com/WPGQPEH.png`)
-                .setTimestamp()
-                .setFooter('Created by LogicGo#7666', 'https://i.imgur.com/iglEZPr.png')
-                .setColor(`fefefe`)
-            message.channel.send(crypto)
-            return
-        }
-
         if (args.length < 2) {
             args.push('usd');
         }
