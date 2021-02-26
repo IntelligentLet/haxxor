@@ -1,5 +1,3 @@
-const { RichPresenceAssets } = require("discord.js");
-
 module.exports = {
     name: 'join',
     description: 'when user joins guild',
