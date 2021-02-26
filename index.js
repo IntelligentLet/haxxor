@@ -1,12 +1,11 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const badwords = require('./commands/bannedphrases.json')
 const express = require('express');
+const config = require('./config.json')
 
 const server = express();
-require('dotenv').config();
 
-server.listen(process.env.PORT);
+server.listen(config.host.port);
 
 const client = new Discord.Client({ disableEveryone: true });
 client.commands = new Discord.Collection();
@@ -24,17 +23,17 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
-    for (badword of badwords) {
+    for (badword of config.delete) {
         if (message.content.includes(badword)) {
             message.delete()
             return
         }
     }
 
-	const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
+	const args = message.content.slice(config.meta.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    if (!message.content.startsWith(process.env.PREFIX)) return;
+    if (!message.content.startsWith(config.meta.prefix)) return;
 	if (!client.commands.has(command)) return;
 	if (message.author.bot) return;
     if (message.guild === null) return;
@@ -48,12 +47,12 @@ client.on('message', message => {
     }
 
     if (args.length < usage.length - 1) {
-        message.channel.send(`${message.author} not enough arguments :/ Maybe check the help menu? \`${process.env.PREFIX} help\``)
+        message.channel.send(`${message.author} not enough arguments :/ Maybe check the help menu? \`${config.meta.prefix} help\``)
         return
     }
 
     try {
-    	client.commands.get(command).execute(message, args, client);
+    	client.commands.get(command).execute(message, args, client, config);
     } catch (error) {
     	console.error(error);
     	message.reply('there was an error trying to execute that command!');
@@ -76,4 +75,4 @@ client.on("guildMemberRemove", (member) => {
     }
 });
 
-client.login(process.env.DISCORD);
+client.login(config.auth.discord);

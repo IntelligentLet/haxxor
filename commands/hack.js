@@ -2,7 +2,7 @@ module.exports = {
     name: 'hack',
     description: 'haxxor time',
     usage: 'hack <user> <account>',
-    execute(message, args, client) {
+    execute(message, args, client, config) {
         message.channel.send(`Hacking ${args[0]}'s ${args[1]} account...`)
         .then(
             setTimeout(function(){message.channel.send("applying hydra-gtk photosynthesis sqli...")}, 3000)

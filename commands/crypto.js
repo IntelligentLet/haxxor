@@ -3,7 +3,7 @@ module.exports = {
     description: 'Track the price of crypto currency',
     aliases: ['cryptocurrency'],
     usage: 'crypto <coin> (currency)',
-    execute(message, args, client) {
+    execute(message, args, client, config) {
         const Discord = require('discord.js')
         const axios = require('axios');
         const Vibrant = require('node-vibrant')

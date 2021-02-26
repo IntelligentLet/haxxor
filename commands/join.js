@@ -1,13 +1,21 @@
+const { RichPresenceAssets } = require("discord.js");
+
 module.exports = {
     name: 'join',
     description: 'when user joins guild',
-    execute(member, client) {
-        if (Date.now() - member.user.createdAt < 1000*60*60*24*7) {
-            member.send("Your account was banned for being too young (< 1 week). This is to prevent spam.")
-            member.ban()
-            return
-        }
-        client.channels.cache.get(process.env.WELCOMECHANNEL)
-            .send(`Welcome ${member.user}! You are member #${(client.guilds.cache.get(member.guild.id).memberCount)}. Please read ${client.channels.cache.get(process.env.RULES)} to get started!`)
+    execute(member, client, config) {
+        const rules = config.join.rules
+        const roles = config.join.role
+        const user = member.user
+        const count = client.guilds.cache.get(member.guild.id).memberCount
+        const welcome = config.join.welcome
+        const send = config.join.send
+
+        send.replace(/\${rules}/g, rules)
+        send.replace(/\${user}/g, user)
+        send.replace(/\${count}/g, count)
+
+        client.channels.cache.get(welcome).send(send)
+        if (config.join.role) member.roles.add(member.guild.roles.cache.find(role => role.id == roles))
     },
 };

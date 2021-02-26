@@ -3,7 +3,7 @@ module.exports = {
     description: 'Displays host info',
     aliases: ['information', 'host'],
     usage: 'info',
-	execute(message, args, client) {
+	execute(message, args, client, config) {
         const os = require('os')
         const Discord = require('discord.js')
 
@@ -28,7 +28,7 @@ module.exports = {
                 { name: 'Github Repo', value: `https://github.com/IntelligentLet/haxxor`}
             )
             .setTimestamp()
-            .setColor(process.env.COLOR)
+            .setColor(config.meta.color)
             .setFooter('Created by LogicGo#7666', 'https://i.imgur.com/iglEZPr.png'); 
             
         message.channel.send(hostinfo);

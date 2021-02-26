@@ -1,0 +1,22 @@
+{
+    "auth" : {
+        "discord" : ""
+    },
+    "join" : {
+        "rules" : "",
+        "welcome" : "",
+        "role" : "",
+        "send" : "Hey ${user}! Please read ${rules}."
+    },
+    "host" : {
+        "port" : ,
+        "title" : ""
+    },
+    "meta" : {
+        "prefix" : "",
+        "color" : ""
+    },
+    "delete" : [
+        ""
+    ]
+}

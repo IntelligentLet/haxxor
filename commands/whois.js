@@ -3,7 +3,7 @@ module.exports = {
     description: 'get user info',
     aliases: ['userinfo'],
     usage: "whois <id/mention/username-tag>",
-    execute(message, args, client) {
+    execute(message, args, client, config) {
         const Discord = require('discord.js')
         const date = require('date-and-time')
 
@@ -16,7 +16,7 @@ module.exports = {
             member = discrim
         }
 
-        if (!user) {message.channel.send("Try an actual user lmao"); return}
+        if (!user || !member) {message.channel.send(`${message.author} try a user that's in the server!`); return}
 
         var userinfo = new Discord.MessageEmbed()
             .setDescription(`${member}`)
@@ -28,7 +28,7 @@ module.exports = {
                 { name: `Roles [${member._roles.length}]`, value: roles = member.roles.cache.filter(role => role.name !== "@everyone").map(r => `${r}`).join(' ') } ,
             )
             .setTimestamp()
-            .setColor(process.env.COLOR)
+            .setColor(config.meta.color)
             .setFooter('Created by LogicGo#7666', 'https://i.imgur.com/iglEZPr.png');
         message.channel.send(userinfo) 
     },
