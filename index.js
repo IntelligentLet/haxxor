@@ -6,6 +6,7 @@ const config = require('./config.json')
 const server = express();
 
 server.listen(config.host.port);
+if (config.host.title) process.title = config.host.title
 
 const client = new Discord.Client({ disableEveryone: true });
 client.commands = new Discord.Collection();
