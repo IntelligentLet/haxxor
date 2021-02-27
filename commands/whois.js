@@ -25,7 +25,7 @@ module.exports = {
             .addFields(
                 { name: `Joined at`, value: date.format(new Date(member.joinedAt), 'ddd, MMM D, YYYY h:mm A'), inline: true},
                 { name: `Registered at`, value: date.format(new Date(user.createdAt), 'ddd, MMM D, YYYY h:mm A'), inline: true } ,
-                { name: `Roles [${member._roles.length}]`, value: roles = member.roles.cache.filter(role => role.name !== "@everyone").map(r => `${r}`).join(' ') } ,
+                { name: `Roles [${member._roles.length + 1}]`, value: roles = member.roles.cache.map(r => `${r}`).join(' ') } ,
             )
             .setTimestamp()
             .setColor(config.meta.color)

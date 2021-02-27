@@ -23,6 +23,8 @@ brew install npm
 npm install
 ```
 
+To make sure everything is set up correctly, run `npm test`
+
 # Configuring
 ### A template config is included, `_config`.
 
@@ -46,7 +48,6 @@ Actions to perform on join
 "role to give" : "id",
 "welcome channel" : "id",
 "rules channel" : "id",
-"send" : "message to send, above variables are ${variable}"
 ```
 
 ## Host

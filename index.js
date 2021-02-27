@@ -62,7 +62,7 @@ client.on('message', message => {
 
 client.on("guildMemberAdd", (member) => {
     try {
-        client.commands.get("join").execute(member, client)
+        client.commands.get("join").execute(member, client, config)
     } catch (error) {
         console.error(error);
     }
@@ -70,7 +70,7 @@ client.on("guildMemberAdd", (member) => {
 
 client.on("guildMemberRemove", (member) => {
     try {
-        client.commands.get("leave").execute(member, client)
+        client.commands.get("leave").execute(member, client, config)
     } catch (error) {
         console.error(error);
     }

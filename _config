@@ -6,7 +6,6 @@
         "rules" : "",
         "welcome" : "",
         "role" : "",
-        "send" : "Hey ${user}! Please read ${rules}."
     },
     "host" : {
         "port" : ,
