@@ -12,8 +12,9 @@ module.exports = {
 
         if (!!args[0].match(/#[0-9]{4}/)) {
             var discrim = message.guild.members.cache.find(user => user.user.discriminator === (args[0].match(/#[0-9]{4}/)[0]).slice(1))
-            user = client.users.cache.get(discrim.user.id)
+            if (!discrim) {message.channel.send(`${message.author} try a user that's in the server!`); return}
             member = discrim
+            user = client.users.cache.get(discrim.user.id)
         }
 
         if (!user || !member) {message.channel.send(`${message.author} try a user that's in the server!`); return}
