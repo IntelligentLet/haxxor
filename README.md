@@ -8,16 +8,12 @@
 # Installing
 
 ### NodeJS/NPM:
+via package manager,
 ```
 pacman -S npm
-apt install npm
-zypper install npm
-dnf install npm
-yum install npm
-brew install npm
-
-...or from the nodejs website
 ```
+or from the nodejs website, https://nodejs.org/en/download/
+
 ### NodeJS dependencies
 ```
 npm install
