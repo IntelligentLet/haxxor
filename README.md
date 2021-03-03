@@ -8,7 +8,7 @@
 # Installing
 
 ### NodeJS/NPM:
-via package manager,
+via package manager, ie
 ```
 pacman -S npm
 ```
