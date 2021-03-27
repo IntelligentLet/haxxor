@@ -3,6 +3,6 @@ module.exports = {
     description: '',
     usage: '',
     aliases: [''],
-    execute(message, args, client) {
+    execute(message, args, client, config) {
     },
 };

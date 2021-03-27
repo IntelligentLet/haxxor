@@ -40,13 +40,8 @@ client.on('message', message => {
     if (message.guild === null) return;
     if (!client.commands.get(command).usage) return;
 
-    var usage = client.commands.get(command).usage.split(" ")
-    for (thing of usage) {
-        if (thing.charAt(0) === "(") {
-            usage.splice(usage.indexOf(usage), 1)
-        }
-    }
-
+    var usage = client.commands.get(command).usage.split(" ").filter(thing => !thing.match(/\(.*\)/g))
+    
     if (args.length < usage.length - 1) {
         message.channel.send(`${message.author} not enough arguments :/ Maybe check the help menu? \`${config.meta.prefix} help\``)
         return

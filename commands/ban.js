@@ -3,7 +3,7 @@ module.exports = {
     description: 'ban user by id/tag/mention',
     usage: 'ban <user> (reason)',
     aliases: ['banhammer', 'out', 'cya', 'adios'],
-    execute(message, args, client) {
+    execute(message, args, client, config) {
         const Discord = require('discord.js')
 
         if (!message.guild.member(message.author).hasPermission('BAN_MEMBERS')) {
